@@ -1,29 +1,71 @@
 package com.tards.imt.mypointofinterest;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.tards.imt.mypointofinterest.list.PoiAdapter;
+import com.tards.imt.mypointofinterest.model.Poi;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 public class PoiListActivity extends AppCompatActivity {
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private List<Poi> mPoiList;
+    private Poi testPoi;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poi_list);
+
+
+        testPoi = new Poi(
+                "labelTest",
+                "LatTest",
+                "LonTest",
+                "descriptionTest");
+
+        mPoiList = new ArrayList<>();
+
+        mPoiList.add(testPoi);
+        mPoiList.add(testPoi);
+        mPoiList.add(testPoi);
+        mPoiList.add(testPoi);
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.poi_recycler_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
 
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new PoiAdapter(mPoiList);
+        mRecyclerView.setAdapter(mAdapter);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(PoiListActivity.this, EditPoiActivity.class);
+                startActivityForResult(intent, 1);
             }
         });
     }
@@ -48,5 +90,18 @@ public class PoiListActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                Poi newPoi = (Poi) data.getSerializableExtra("newPoi");
+                mPoiList.add(newPoi);
+                mAdapter.notifyDataSetChanged();
+
+                Log.d("newPoi: ", newPoi.toString());
+            }
+        }
     }
 }

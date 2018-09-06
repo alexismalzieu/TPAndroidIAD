@@ -1,10 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EditPoiActivity">
+
+    <TextView
+        android:id="@+id/editionTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Edition"
+        android:textSize="34dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/titleLayout"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/editionTv">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/titleInput"
+            android:hint="Titre du POI" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/latitudeLayout"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/titleLayout">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/latitudeInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Latitude" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/longitudeLayout"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/latitudeLayout">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/longitudeInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Longitude" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/descriptionLayout"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/longitudeLayout">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/descriptionInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/submitButton"
+        android:layout_marginTop="16dp"
+        android:text="Enregistrer"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionLayout" />
 
 </android.support.constraint.ConstraintLayout>
