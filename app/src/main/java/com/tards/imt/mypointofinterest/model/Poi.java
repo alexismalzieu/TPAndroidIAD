@@ -105,6 +105,7 @@ public class Poi implements Serializable{
     }
 
 
+
     @Override
     public String toString() {
         return "Poi{" +

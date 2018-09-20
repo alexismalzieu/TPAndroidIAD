@@ -1,5 +1,8 @@
 package com.tards.imt.mypointofinterest.list;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,9 +18,11 @@ import com.tards.imt.mypointofinterest.model.Poi;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class PoiAdapter extends RecyclerView.Adapter<PoiAdapter.ViewHolder>{
 
+    private Context mContext;
     private List<Poi> mPoiList;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -41,7 +46,8 @@ public class PoiAdapter extends RecyclerView.Adapter<PoiAdapter.ViewHolder>{
 
     }
 
-    public PoiAdapter(List<Poi> poiList) {
+    public PoiAdapter(Context context, List<Poi> poiList) {
+        this.mContext = context;
         this.mPoiList = poiList;
     }
 
@@ -55,7 +61,7 @@ public class PoiAdapter extends RecyclerView.Adapter<PoiAdapter.ViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PoiAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final PoiAdapter.ViewHolder holder, final int position) {
 
         Log.d("onBindViewHolder():","called");
 
@@ -64,11 +70,30 @@ public class PoiAdapter extends RecyclerView.Adapter<PoiAdapter.ViewHolder>{
 
         holder.mDate.setText(mPoiList.get(position).getDateString());
 
+        holder.mLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Poi poi = Utils.getPoiByDate(mPoiList,mPoiList.get(position).getCreatedAt());
+
+                String lat = poi.getLatitude();
+                String lng = poi.getLongitude();
+
+                System.out.println("Lat: " + lat);
+                System.out.println("Lng: " + lng);
+
+                String uri = "geo:<" + lat +">,<" + lng +">?q=<" + lat +">,<" + lng +">";
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                mContext.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
     public int getItemCount() {
         return mPoiList.size();
     }
+
 
 }

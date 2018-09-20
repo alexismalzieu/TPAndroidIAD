@@ -38,8 +38,8 @@ public class PoiListActivity extends AppCompatActivity {
 
         testPoi = new Poi(
                 "labelTest",
-                "LatTest",
-                "LonTest",
+                "50.610388",
+                "3.1308817",
                 "descriptionTest");
 
         mPoiList = new ArrayList<>();
@@ -56,7 +56,7 @@ public class PoiListActivity extends AppCompatActivity {
 
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new PoiAdapter(mPoiList);
+        mAdapter = new PoiAdapter(this, mPoiList);
         mRecyclerView.setAdapter(mAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
