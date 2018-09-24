@@ -7,13 +7,12 @@
     tools:context=".EditPoiActivity">
 
     <TextView
-        android:id="@+id/editionTv"
+        android:id="@+id/activityLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Edition"
         android:textSize="34dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,7 +22,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/titleLayout"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/editionTv">
+        app:layout_constraintTop_toBottomOf="@+id/activityLabel">
 
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
@@ -86,5 +85,54 @@
         android:layout_marginTop="16dp"
         android:text="Enregistrer"
         app:layout_constraintTop_toBottomOf="@+id/descriptionLayout" />
+
+    <TextView
+        android:id="@+id/latitudeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/submitButton" />
+
+    <Button
+        android:id="@+id/locationButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Copier coordonées"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/longitudeTv" />
+
+    <TextView
+        android:id="@+id/longitudeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/latitudeTv" />
+
+    <ImageView
+        android:id="@+id/refreshButton"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_refresh_black_24dp"
+        app:layout_constraintBottom_toTopOf="@+id/locationButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/submitButton"
+        tools:ignore="VectorDrawableCompat" />
 
 </android.support.constraint.ConstraintLayout>

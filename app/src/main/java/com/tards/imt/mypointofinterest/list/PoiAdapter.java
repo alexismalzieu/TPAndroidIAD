@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.tards.imt.mypointofinterest.PoiListActivity;
 import com.tards.imt.mypointofinterest.R;
 import com.tards.imt.mypointofinterest.model.Poi;
 
@@ -31,6 +32,7 @@ public class PoiAdapter extends RecyclerView.Adapter<PoiAdapter.ViewHolder>{
         public TextView mDescription;
         public TextView mDate;
         public ImageView mLocation;
+        public View mView;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -41,6 +43,7 @@ public class PoiAdapter extends RecyclerView.Adapter<PoiAdapter.ViewHolder>{
             mDescription = itemView.findViewById(R.id.descriptionTv);
             mDate = itemView.findViewById(R.id.dateTv);
             mLocation = itemView.findViewById(R.id.locationIv);
+            mView = itemView.findViewById(R.id.view);
 
         }
 
@@ -85,6 +88,19 @@ public class PoiAdapter extends RecyclerView.Adapter<PoiAdapter.ViewHolder>{
                 String uri = "geo:<" + lat +">,<" + lng +">?q=<" + lat +">,<" + lng +">";
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                 mContext.startActivity(intent);
+            }
+        });
+
+        holder.mView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                if(mContext instanceof  PoiListActivity){
+
+                    ((PoiListActivity)mContext).startEditActivity(mPoiList.get(position));
+
+                }
+                return false;
             }
         });
 

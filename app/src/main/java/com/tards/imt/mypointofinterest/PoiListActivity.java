@@ -1,6 +1,9 @@
 package com.tards.imt.mypointofinterest;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -35,6 +38,7 @@ public class PoiListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poi_list);
 
+        permissionRequest();
 
         testPoi = new Poi(
                 "labelTest",
@@ -64,8 +68,7 @@ public class PoiListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PoiListActivity.this, EditPoiActivity.class);
-                startActivityForResult(intent, 1);
+                startEditActivity(null);
             }
         });
     }
@@ -97,11 +100,55 @@ public class PoiListActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
                 Poi newPoi = (Poi) data.getSerializableExtra("newPoi");
-                mPoiList.add(newPoi);
-                mAdapter.notifyDataSetChanged();
+                Boolean edition = data.getBooleanExtra("edtion", false);
+
+                if(edition){
+                    for(Poi poi : mPoiList){
+                        if(poi.getCreatedAt().equals(newPoi.getCreatedAt())) {
+
+                            //TODO Edition
+                            poi.setLabel(newPoi.getLabel());
+                            poi.setLatitude(newPoi.getLatitude());
+                            poi.setLongitude(newPoi.getLongitude());
+                            poi.setDescription(newPoi.getDescription());
+
+                            mAdapter.notifyDataSetChanged();
+                            return;
+                        }
+                    }
+                    mPoiList.add(newPoi);
+                    mAdapter.notifyDataSetChanged();
+
+                } else {
+                    mPoiList.add(newPoi);
+                    mAdapter.notifyDataSetChanged();
+                }
+
 
                 Log.d("newPoi: ", newPoi.toString());
             }
         }
+    }
+
+    public void startEditActivity(Poi poi){
+
+        Intent intent = new Intent(PoiListActivity.this, EditPoiActivity.class);
+
+        if (poi != null) {
+            intent.putExtra("poi", poi);
+        }
+
+        startActivityForResult(intent, 1);
+
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    public void permissionRequest(){
+
+        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.INTERNET};
+
+        requestPermissions(permissions,1);
     }
 }
