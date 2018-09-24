@@ -77,10 +77,11 @@ public class PoiAdapter extends RecyclerView.Adapter<PoiAdapter.ViewHolder>{
             @Override
             public void onClick(View v) {
 
-                Poi poi = Utils.getPoiByDate(mPoiList,mPoiList.get(position).getCreatedAt());
 
-                String lat = poi.getLatitude();
-                String lng = poi.getLongitude();
+                Log.d("POI onClick ","POI: " + mPoiList.get(position).getLabel());
+
+                String lat = mPoiList.get(position).getLatitude();
+                String lng = mPoiList.get(position).getLongitude();
 
                 System.out.println("Lat: " + lat);
                 System.out.println("Lng: " + lng);

@@ -73,6 +73,7 @@ public class EditPoiActivity extends AppCompatActivity {
                         mLatitudeImput.getText().toString(),
                         mLongitudeInput.getText().toString(),
                         mDescriptionInput.getText().toString());
+                edition = false;
             }
         }catch (Exception e){
 
@@ -114,6 +115,7 @@ public class EditPoiActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.putExtra("newPoi", mCurrentPoi);
         intent.putExtra("edition",edition);
+        Log.d("EditPoiActivity", "passing edition as :" + edition);
         setResult(RESULT_OK, intent);
         finish();
     }

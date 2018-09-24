@@ -29,8 +29,6 @@ public class PoiListActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<Poi> mPoiList;
-    private Poi testPoi;
-
 
 
     @Override
@@ -40,18 +38,9 @@ public class PoiListActivity extends AppCompatActivity {
 
         permissionRequest();
 
-        testPoi = new Poi(
-                "labelTest",
-                "50.610388",
-                "3.1308817",
-                "descriptionTest");
-
         mPoiList = new ArrayList<>();
 
-        mPoiList.add(testPoi);
-        mPoiList.add(testPoi);
-        mPoiList.add(testPoi);
-        mPoiList.add(testPoi);
+        initTestList();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.poi_recycler_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -100,13 +89,14 @@ public class PoiListActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
                 Poi newPoi = (Poi) data.getSerializableExtra("newPoi");
-                Boolean edition = data.getBooleanExtra("edtion", false);
+                Boolean edition = data.getBooleanExtra("edition", false);
 
                 if(edition){
+                    Log.d("onActivityResult", "EDITION");
                     for(Poi poi : mPoiList){
                         if(poi.getCreatedAt().equals(newPoi.getCreatedAt())) {
+                            Log.d("onActivityResult", "POI FOUND");
 
-                            //TODO Edition
                             poi.setLabel(newPoi.getLabel());
                             poi.setLatitude(newPoi.getLatitude());
                             poi.setLongitude(newPoi.getLongitude());
@@ -120,6 +110,8 @@ public class PoiListActivity extends AppCompatActivity {
                     mAdapter.notifyDataSetChanged();
 
                 } else {
+                    Log.d("onActivityResult", "CREATION");
+
                     mPoiList.add(newPoi);
                     mAdapter.notifyDataSetChanged();
                 }
@@ -150,5 +142,29 @@ public class PoiListActivity extends AppCompatActivity {
                 Manifest.permission.INTERNET};
 
         requestPermissions(permissions,1);
+    }
+
+    public void initTestList() {
+        Poi testPoi1 = new Poi(
+                "Place de la république",
+                "50.6310309",
+                "3.0629122",
+                "Place de la république, Lille");
+
+        Poi testPoi2 = new Poi(
+                "St-Laurent",
+                "45.50986",
+                "-73.5643792",
+                "Croisement St-Laurent/St-Catherine, Montréal");
+
+        Poi testPoi3 = new Poi(
+                "Cathédral St-Paul",
+                "51.5133253",
+                "-0.1018136",
+                "Cathédral St-Paul, Londres");
+
+        mPoiList.add(testPoi1);
+        mPoiList.add(testPoi2);
+        mPoiList.add(testPoi3);
     }
 }
