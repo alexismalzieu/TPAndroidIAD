@@ -92,16 +92,13 @@ public class PoiAdapter extends RecyclerView.Adapter<PoiAdapter.ViewHolder>{
             }
         });
 
-        holder.mView.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
+            public void onClick(View v) {
 
                 if(mContext instanceof  PoiListActivity){
-
                     ((PoiListActivity)mContext).startEditActivity(mPoiList.get(position));
-
                 }
-                return false;
             }
         });
 
